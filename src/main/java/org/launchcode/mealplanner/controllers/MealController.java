@@ -21,13 +21,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("meal")
-public class MealController {
+public class MealController extends AbstractController{
 
-    @Autowired
+/*    @Autowired
     private MealDao mealDao;
 
     @Autowired
@@ -37,7 +38,7 @@ public class MealController {
     private ComponentDao componentDao;
 
     @Autowired
-    private DayDao dayDao;
+    private DayDao dayDao;*/
 
     @RequestMapping(value = "")
     public String index(Model model) {
@@ -60,13 +61,14 @@ public class MealController {
 
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String processCreateMealForm(@ModelAttribute @Valid Meal newMeal, Errors errors, Model model) {
+    public String processCreateMealForm(@ModelAttribute @Valid Meal newMeal, Errors errors, Model model, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create New Meal");
             return "meal/create";
         }
 
+        newMeal.setUser(getUserFromSession(request.getSession()));
         mealDao.save(newMeal);
 
 

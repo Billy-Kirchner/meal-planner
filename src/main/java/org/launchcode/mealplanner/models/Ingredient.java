@@ -12,15 +12,21 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
-public class Ingredient {
+public class Ingredient extends AbstractEntity{
 
-    @Id
+/*    @Id
     @GeneratedValue
-    private int id;
+    private int id;*/
 
     @NotNull
     @Size(min=3, max=30, message = "Name must be between 3 and 30 characters")
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+
     @NotNull
     private double calories;
     @NotNull
@@ -79,6 +85,14 @@ public class Ingredient {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public double getCalories() {
@@ -185,9 +199,9 @@ public class Ingredient {
         return netCarbohydrate;
     }
 
-    public int getId() {
+/*    public int getId() {
         return id;
-    }
+    }*/
 
     public void calculateTotalFat () {
         totalFat = saturatedFat+polyUnsaturatedFat+monoUnsaturatedFat+transFat;
@@ -195,12 +209,12 @@ public class Ingredient {
 
     public void calculateNetCarbohydrate () {
 
-       if ((totalCarbohydrate - dietaryFiber - sugar) < 0) {
-           netCarbohydrate = 0;
-       }
-       else {
-           netCarbohydrate = totalCarbohydrate - dietaryFiber - sugar;
-       }
+        if ((totalCarbohydrate - dietaryFiber - sugar) < 0) {
+            netCarbohydrate = 0;
+        }
+        else {
+            netCarbohydrate = totalCarbohydrate - dietaryFiber - sugar;
+        }
 
     }
 

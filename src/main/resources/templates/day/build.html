@@ -107,10 +107,10 @@
 
             <p th:unless="${form.day.meals} and ${form.day.meals.size()}">No meals currently planned for the day</p>
 
-<!--            <ul th:each="meal : ${form.day.meals}">
-                <li th:text="${meal.name}"></li>
-                &lt;!&ndash;<a th:href="@{'/meal/remove-ingredient/' + ${form.ingredientId}">Remove?</a>&ndash;&gt;
-            </ul>-->
+            <!--            <ul th:each="meal : ${form.day.meals}">
+                            <li th:text="${meal.name}"></li>
+                            &lt;!&ndash;<a th:href="@{'/meal/remove-ingredient/' + ${form.ingredientId}">Remove?</a>&ndash;&gt;
+                        </ul>-->
 
             <table class="table" th:if="${form.day.meals} and ${form.day.meals.size()}">
 
@@ -137,7 +137,10 @@
                 <div class="form-group">
                     <label th:for="mealId">Select Meal</label>
                     <select class="form-control" th:field="*{mealId}">
-                        <option th:each="meal : *{meals}" th:value="${meal.id}" th:text="${meal.name}"></option>
+                        <div th:each="meal : *{meals}">
+                            <option th:if="${meal.user.id} == ${user.id}" th:value="${meal.id}" th:text="${meal.name}"></option>
+                        </div>
+
                     </select>
                     <span th:errors="*{mealId}" class="error"></span>
                     <input type="hidden" name="dayId" th:value="*{day.id}" />

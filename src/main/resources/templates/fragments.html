@@ -21,22 +21,32 @@
 <nav th:fragment="navigation" class="navbar navbar-expand-lg bg-dark">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Meal Planner</a>
+            <a class="navbar-brand" href="/" style="color:white;">Meal Planner</a>
         </div>
 
         <ul class="navbar-nav mr-auto" >
             <!--<a href="/" class="ml-10">Home</a> |-->
-            <li class="nav-item active"><a href="/ingredient">Ingredients</a></li>
+            <li class="nav-item active"><a href="/ingredient" style="color:white;">Ingredients</a></li>
             <li class="nav-item">|||</li>
-            <li class="nav-item"><a href="/meal">Meals</a></li>
+            <li class="nav-item"><a href="/meal" style="color:white;">Meals</a></li>
             <li class="nav-item">|||</li>
-            <li class="nav-item"><a href="/day">Day Planner</a></li>
+            <li class="nav-item"><a href="/day" style="color:white;">Day Planner</a></li>
         </ul>
 
-        <div class="nav navbar-right">
-            <a href="/register"><span class="glyphicon glyphicon-user"></span>Sign Up</a> |
-            <a href="/login"><span class="glyphicon glyphicon-log-in"></span>Login</a>
+
+        <div th:if="${user} == null">
+            <div class="nav navbar-right">
+                <a href="/register" style="color:white;"><span class="glyphicon glyphicon-user"></span>Sign Up</a> |
+                <a href="/login" style="color:white;"><span class="glyphicon glyphicon-log-in"></span>Login</a>
+            </div>
         </div>
+        <div th:if="${user} != null">
+            <div class="nav navar-right">
+                <a th:text="'Welcome ' + ${user.username}" style="color:white;"></a> |
+                <a href="/logout" style="color:white;"><span class="glyphicon glyphicon-log-out">Log Out</a>
+            </div>
+        </div>
+
     </div>
 
 </nav>

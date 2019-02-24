@@ -10,11 +10,11 @@ import javax.validation.constraints.Size;
 import java.util.*;
 
 @Entity
-public class Meal {
+public class Meal extends AbstractEntity{
 
-    @Id
+/*    @Id
     @GeneratedValue
-    private int id;
+    private int id;*/
 
     @NotNull
     @Size(min=3, max=30,message= "Name must be between 3 and 30 characters")
@@ -22,6 +22,10 @@ public class Meal {
 
     @OneToMany
     private List<Component> components = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 /*    @ManyToMany
     private List<Ingredient> ingredients;*/
@@ -78,8 +82,12 @@ public class Meal {
         this.components = components;
     }
 
-    public int getId() {
-        return id;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public double getCalories() {

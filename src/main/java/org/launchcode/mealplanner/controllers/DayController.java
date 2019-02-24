@@ -3,6 +3,7 @@ package org.launchcode.mealplanner.controllers;
 
 import org.launchcode.mealplanner.models.Day;
 import org.launchcode.mealplanner.models.Meal;
+import org.launchcode.mealplanner.models.User;
 import org.launchcode.mealplanner.models.data.DayDao;
 import org.launchcode.mealplanner.models.data.MealDao;
 import org.launchcode.mealplanner.models.forms.BuildDayForm;
@@ -17,17 +18,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("day")
-public class DayController {
+public class DayController extends AbstractController{
 
-    @Autowired
-    private DayDao dayDao;
-
-    @Autowired
-    private MealDao mealDao;
 
     @RequestMapping(value = "")
     public String index (Model model) {
@@ -48,13 +45,14 @@ public class DayController {
     }
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String processCreateDayForm(@ModelAttribute @Valid Day newDay, Errors errors, Model model) {
+    public String processCreateDayForm(@ModelAttribute @Valid Day newDay, Errors errors, Model model, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create New Day");
             return "day/create";
         }
 
+        newDay.setUser(getUserFromSession(request.getSession()));
         dayDao.save(newDay);
 
 
@@ -111,7 +109,7 @@ public class DayController {
 
         model.addAttribute("day", dayDao.findById(id).orElse(null));
 
-       dayDao.deleteById(id);
+        dayDao.deleteById(id);
 
         return "day/delete";
     }
