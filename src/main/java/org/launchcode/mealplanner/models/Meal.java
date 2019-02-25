@@ -3,18 +3,11 @@ package org.launchcode.mealplanner.models;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
-
-
-import javax.persistence.GeneratedValue;
 import javax.validation.constraints.Size;
 import java.util.*;
 
 @Entity
 public class Meal extends AbstractEntity{
-
-/*    @Id
-    @GeneratedValue
-    private int id;*/
 
     @NotNull
     @Size(min=3, max=30,message= "Name must be between 3 and 30 characters")
@@ -26,9 +19,6 @@ public class Meal extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-/*    @ManyToMany
-    private List<Ingredient> ingredients;*/
 
     private double calories;
     private double saturatedFat;
@@ -64,15 +54,6 @@ public class Meal extends AbstractEntity{
     public void setName(String name) {
         this.name = name;
     }
-
-/*    public HashMap<Ingredient, Double> getComponents() {
-        return components;
-    }
-
-    public void setComponents(HashMap<Ingredient, Double> components) {
-        this.components = components;
-    }*/
-
 
     public List<Component> getComponents() {
         return components;
@@ -146,10 +127,6 @@ public class Meal extends AbstractEntity{
         return protein;
     }
 
-/*    public void addIngredient (Ingredient ingredient) {
-        ingredients.add(ingredient);
-    }*/
-
     public void addComponent (Component component) {
         components.add(component);
     }
@@ -176,42 +153,9 @@ public class Meal extends AbstractEntity{
         protein = 0;
 
 
-
-/*        for( Ingredient ingredient : ingredients) {
-            calories += ingredient.getCalories();
-            saturatedFat += ingredient.getSaturatedFat();
-            polyUnsaturatedFat += ingredient.getPolyUnsaturatedFat();
-            monoUnsaturatedFat += ingredient.getMonoUnsaturatedFat();
-            transFat += ingredient.getTransFat();
-            totalFat += ingredient.getTotalFat();
-            cholesterol += ingredient.getCholesterol();
-            sodium += ingredient.getSodium();
-            potassium += ingredient.getPotassium();
-            totalCarbohydrate += ingredient.getTotalCarbohydrate();
-            dietaryFiber += ingredient.getDietaryFiber();
-            sugar += ingredient.getSugar();
-            netCarbohydrate += ingredient.getNetCarbohydrate();
-            protein += ingredient.getProtein();
-        }*/
-
         for( Component component : components) {
             Ingredient ingredient = component.getIngredient();
             Double servings = component.getServings();
-
-/*            calories += ingredient.getCalories();
-            saturatedFat += ingredient.getSaturatedFat();
-            polyUnsaturatedFat += ingredient.getPolyUnsaturatedFat();
-            monoUnsaturatedFat += ingredient.getMonoUnsaturatedFat();
-            transFat += ingredient.getTransFat();
-            totalFat += ingredient.getTotalFat();
-            cholesterol += ingredient.getCholesterol();
-            sodium += ingredient.getSodium();
-            potassium += ingredient.getPotassium();
-            totalCarbohydrate += ingredient.getTotalCarbohydrate();
-            dietaryFiber += ingredient.getDietaryFiber();
-            sugar += ingredient.getSugar();
-            netCarbohydrate += ingredient.getNetCarbohydrate();
-            protein += ingredient.getProtein();*/
 
             calories += (ingredient.getCalories() * servings);
             saturatedFat += (ingredient.getSaturatedFat() * servings);
@@ -228,14 +172,5 @@ public class Meal extends AbstractEntity{
             netCarbohydrate += (ingredient.getNetCarbohydrate() * servings);
             protein += (ingredient.getProtein() * servings);
         }
-
-/*        Iterator it = components.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            calories += (pair.getKey().getCalories * pair.getValue());
-            saturatedFat += (pair.getKey().getSaturatedFat * pair.getValue());
-        }*/
-
-
     }
 }

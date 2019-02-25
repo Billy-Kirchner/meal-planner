@@ -3,14 +3,8 @@ package org.launchcode.mealplanner.controllers;
 
 import org.launchcode.mealplanner.models.Day;
 import org.launchcode.mealplanner.models.Meal;
-import org.launchcode.mealplanner.models.User;
-import org.launchcode.mealplanner.models.data.DayDao;
-import org.launchcode.mealplanner.models.data.MealDao;
 import org.launchcode.mealplanner.models.forms.BuildDayForm;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;

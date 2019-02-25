@@ -14,10 +14,6 @@ public class Component {
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
 
-    @ManyToOne
-    @JoinColumn(name = "meal_id")
-    private Meal meal;
-
     private Double servings;
 
     public Component (Ingredient ingredient, Double servings) {

@@ -108,14 +108,7 @@
         <div class="col-sm-4">
             <h2>Meal Components</h2>
 
-            <!--<p th:unless="${form.meal.components} and ${form.meal.components.size()}">Meal currently has no components</p>-->
-            <!--<p th:unless="${form.meal.ingredients} and ${form.meal.ingredients.size()}">Meal currently has no ingredients</p>-->
             <p th:unless="${form.meal.components} and ${form.meal.components.size()}">Meal currently has no components</p>
-
-            <!--            <ul th:each="ingredient : ${form.meal.ingredients}">
-                            <li th:text="${ingredient.name}"></li>
-                            &lt;!&ndash;<a th:href="@{'/meal/remove-ingredient/' + ${form.ingredientId}">Remove?</a>&ndash;&gt;
-                        </ul>-->
 
             <table class="table" th:if="${form.meal.components} and ${form.meal.components.size()}">
 
@@ -128,7 +121,6 @@
                     <td th:text="${component.ingredient.name}"></td>
                     <td th:text="${component.servings}"></td>
                     <td>
-                        <!--<a th:href="@{'/meal/build/' + ${form.meal.id}}">Remove Component</a>-->
                         <form method="post" style="max-width:600px;" th:object="${form}" th:action="@{'remove-component/' + ${component.id}}">
                             <input type="hidden" name="mealId" th:value="*{meal.id}" />
                             <input type="submit" value="Remove Component" />
@@ -143,9 +135,6 @@
             <form method="post" style="max-width:600px;" th:object="${form}">
                 <div class="form-group">
                     <label th:for="ingredientId">Select Ingredient</label>
-                    <!--                    <select class="form-control" th:field="*{ingredientId}">
-                                            <option th:each="ingredient : *{ingredients}" th:value="${ingredient.id}" th:text="${ingredient.name}"></option>
-                                        </select>-->
                     <select class="form-control" th:field="*{ingredientId}">
                         <div th:each="ingredient : *{ingredients}">
                             <div th:if="${ingredient.user.id} == ${user.id}">

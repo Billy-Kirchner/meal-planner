@@ -2,11 +2,6 @@ package org.launchcode.mealplanner.controllers;
 
 
 import org.launchcode.mealplanner.models.*;
-import org.launchcode.mealplanner.models.data.ComponentDao;
-import org.launchcode.mealplanner.models.data.DayDao;
-import org.launchcode.mealplanner.models.data.IngredientDao;
-import org.launchcode.mealplanner.models.data.MealDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -14,28 +9,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.persistence.ManyToOne;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
 
 
 @Controller
 @RequestMapping("ingredient")
 public class IngredientController extends AbstractController{
-
-/*    @Autowired
-    private IngredientDao ingredientDao;
-
-    @Autowired
-    private MealDao mealDao;
-
-    @Autowired
-    private DayDao dayDao;
-
-    @Autowired
-    ComponentDao componentDao;*/
 
     @RequestMapping(value = "")
     public String index( Model model) {

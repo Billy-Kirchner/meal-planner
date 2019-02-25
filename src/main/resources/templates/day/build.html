@@ -107,11 +107,6 @@
 
             <p th:unless="${form.day.meals} and ${form.day.meals.size()}">No meals currently planned for the day</p>
 
-            <!--            <ul th:each="meal : ${form.day.meals}">
-                            <li th:text="${meal.name}"></li>
-                            &lt;!&ndash;<a th:href="@{'/meal/remove-ingredient/' + ${form.ingredientId}">Remove?</a>&ndash;&gt;
-                        </ul>-->
-
             <table class="table" th:if="${form.day.meals} and ${form.day.meals.size()}">
 
                 <tr>

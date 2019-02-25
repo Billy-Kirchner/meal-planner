@@ -5,14 +5,8 @@ import org.launchcode.mealplanner.models.Component;
 import org.launchcode.mealplanner.models.Day;
 import org.launchcode.mealplanner.models.Ingredient;
 import org.launchcode.mealplanner.models.Meal;
-import org.launchcode.mealplanner.models.data.ComponentDao;
 import org.launchcode.mealplanner.models.data.DayDao;
-import org.launchcode.mealplanner.models.data.IngredientDao;
-import org.launchcode.mealplanner.models.data.MealDao;
-import org.launchcode.mealplanner.models.forms.BuildDayForm;
 import org.launchcode.mealplanner.models.forms.BuildMealForm;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -27,18 +21,6 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("meal")
 public class MealController extends AbstractController{
-
-/*    @Autowired
-    private MealDao mealDao;
-
-    @Autowired
-    private IngredientDao ingredientDao;
-
-    @Autowired
-    private ComponentDao componentDao;
-
-    @Autowired
-    private DayDao dayDao;*/
 
     @RequestMapping(value = "")
     public String index(Model model) {
@@ -107,11 +89,6 @@ public class MealController extends AbstractController{
         currentMeal.calculateTotals();
         mealDao.save(currentMeal);
 
-
-/*        currentMeal.addComponent(newIngredient, servings);
-        mealDao.save(currentMeal);*/
-
-
         return "redirect:/meal/build/" + currentMeal.getId();
 
     }
@@ -127,6 +104,11 @@ public class MealController extends AbstractController{
         componentDao.delete(discardedComponent);
         currentMeal.calculateTotals();
         mealDao.save(currentMeal);
+
+        for (Day day : dayDao.findAll()) {
+            day.calculateTotals();
+            dayDao.save(day);
+        }
 
         return "redirect:/meal/build/" + currentMeal.getId();
     }
@@ -144,6 +126,11 @@ public class MealController extends AbstractController{
                 day.calculateTotals();
                 dayDao.save(day);
             }
+        }
+
+        for (Component component : deletedMeal.getComponents()) {
+            deletedMeal.removeComponent(component);
+            componentDao.delete(component);
         }
 
 
