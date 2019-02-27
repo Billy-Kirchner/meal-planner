@@ -17,8 +17,13 @@ import javax.validation.Valid;
 @RequestMapping("ingredient")
 public class IngredientController extends AbstractController{
 
+
     @RequestMapping(value = "")
-    public String index( Model model) {
+    public String index( Model model, HttpServletRequest request) {
+
+        if(getUserFromSession(request.getSession()) == null) {
+            return "redirect:" + "/login";
+        }
 
         model.addAttribute("ingredients", ingredientDao.findAll());
         model.addAttribute("title", "Available Ingredients");

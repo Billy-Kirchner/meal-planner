@@ -1,4 +1,4 @@
-/*package org.launchcode.mealplanner;
+package org.launchcode.mealplanner;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,4 +19,4 @@ public class WebApplicationConfig implements WebMvcConfigurer {
     }
 
 
-}*/
+}

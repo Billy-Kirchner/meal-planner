@@ -14,9 +14,9 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-4">
-            <button data-toggle="collapse" data-target="#nutrition">Nutrition Totals</button>
+            <!--<button data-toggle="collapse" data-target="#nutrition">Nutrition Totals</button>-->
 
-            <div id="nutrition" class="collapse">
+            <!--<div id="nutrition" class="collapse">-->
                 <h2>Nutrition Totals</h2>
 
                 <table class="table-bordered">
@@ -28,76 +28,76 @@
 
                     <tr>
                         <td>Calories</td>
-                        <td th:text="${form.meal.calories}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.calories, 0, 2)}"></td>
                     </tr>
 
                     <tr>
                         <td>Saturated Fat</td>
-                        <td th:text="${form.meal.saturatedFat}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.saturatedFat, 0, 2)}"></td>
                     </tr>
 
                     <tr>
                         <td>Polyunsaturated Fat</td>
-                        <td th:text="${form.meal.polyUnsaturatedFat}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.polyUnsaturatedFat, 0, 2)}"></td>
                     </tr>
 
                     <tr>
                         <td>Monounsaturated Fat</td>
-                        <td th:text="${form.meal.monoUnsaturatedFat}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.monoUnsaturatedFat, 0, 2)}"></td>
                     </tr>
 
                     <tr>
                         <td>Trans Fat</td>
-                        <td th:text="${form.meal.transFat}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.transFat, 0, 2)}"></td>
                     </tr>
 
                     <tr>
                         <td>Total Fat</td>
-                        <td th:text="${form.meal.totalFat}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.totalFat, 0, 2)}"></td>
                     </tr>
 
                     <tr>
                         <td>Cholesterol</td>
-                        <td th:text="${form.meal.cholesterol}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.cholesterol, 0, 2)}"></td>
                     </tr>
 
                     <tr>
                         <td>Sodium</td>
-                        <td th:text="${form.meal.sodium}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.sodium, 0, 2)}"></td>
                     </tr>
 
                     <tr>
                         <td>Potassium</td>
-                        <td th:text="${form.meal.potassium}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.potassium, 0, 2)}"></td>
                     </tr>
 
                     <tr>
                         <td>Total Carbohydrate</td>
-                        <td th:text="${form.meal.totalCarbohydrate}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.totalCarbohydrate, 0, 2)}"></td>
                     </tr>
 
                     <tr>
                         <td>Dietary Fiber</td>
-                        <td th:text="${form.meal.dietaryFiber}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.dietaryFiber, 0, 2)}"></td>
                     </tr>
 
                     <tr>
                         <td>Sugar</td>
-                        <td th:text="${form.meal.sugar}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.sugar, 0, 2)}"></td>
                     </tr>
 
                     <tr>
                         <td>Net Carbohydrate</td>
-                        <td th:text="${form.meal.netCarbohydrate}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.netCarbohydrate, 0, 2)}"></td>
                     </tr>
 
                     <tr>
                         <td>Protein</td>
-                        <td th:text="${form.meal.protein}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.protein, 0, 2)}"></td>
                     </tr>
 
                 </table>
-            </div>
+            <!--</div>-->
 
         </div>
 

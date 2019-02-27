@@ -1,9 +1,8 @@
-/*
 package org.launchcode.mealplanner;
 
 import org.launchcode.mealplanner.controllers.AbstractController;
 import org.launchcode.mealplanner.models.User;
-import org.launchcode.mealplanner.models.data.UserDoa;
+import org.launchcode.mealplanner.models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -16,7 +15,7 @@ import java.util.List;
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
-    UserDoa userDao;
+    UserDao userDao;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
@@ -25,7 +24,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         List<String> publicPages = Arrays.asList("/login", "/register");
 
         //Requires login for other pages
-        if (!publicPages.contains(request.getRequestURL())) {
+        if (!publicPages.contains(request.getRequestURI())) {
 
             Integer userId = (Integer) request.getSession().getAttribute(AbstractController.userSessionKey);
 
@@ -44,4 +43,3 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         return true;
     }
 }
-*/
