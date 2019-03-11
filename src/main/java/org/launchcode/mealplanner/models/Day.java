@@ -14,7 +14,7 @@ public class Day extends AbstractEntity{
     private int id;*/
 
     @NotNull
-    @Size(min = 3, max = 30, message = "Name must be between 3 and 30 characters")
+    @Size(min = 3, max = 30, message = "Please select a date above")
     private String name;
 
     @ManyToMany

@@ -10,4 +10,5 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface DayDao extends CrudRepository<Day, Integer> {
+    Day findByName(String name);
 }

@@ -30,9 +30,12 @@
 
 
             <ul th:each="ingredient : ${ingredients}">
-                <div th:if="${ingredient.user.id} == ${user.id}">
-                    <a th:text="${ingredient.name}" th:href="@{'/ingredient/view/' + ${ingredient.id}}"></a>
+                <div th:if="${ingredient.user.id} != null">
+                    <div th:if="${ingredient.user.id} == ${user.id}">
+                        <a th:text="${ingredient.name}" th:href="@{'/ingredient/view/' + ${ingredient.id}}"></a>
+                    </div>
                 </div>
+
 
             </ul>
         </div>

@@ -13,6 +13,9 @@
     <div class="row justify-content-center">
         <a th:href="@{'/ingredient/delete/' + ${ingredient.id}}" class="button">Delete Ingredient</a>
     </div>
+    <div class="row justify-content-center">
+        <a th:href="@{'/ingredient/edit/' + ${ingredient.id}}" class="button">Edit Ingredient</a>
+    </div>
 </div>
 
 <div class="row justify-content-center">
@@ -25,72 +28,72 @@
 
         <tr>
             <td>Calories</td>
-            <td th:text="${ingredient.calories}"></td>
+            <td th:text="${#numbers.formatDecimal(ingredient.calories, 0, 2)}"></td>
         </tr>
 
         <tr>
             <td>Saturated Fat</td>
-            <td th:text="${ingredient.saturatedFat}"></td>
+            <td th:text="${#numbers.formatDecimal(ingredient.saturatedFat, 0, 2)} + 'g'"></td>
         </tr>
 
         <tr>
             <td>Polyunsaturated Fat</td>
-            <td th:text="${ingredient.polyUnsaturatedFat}"></td>
+            <td th:text="${#numbers.formatDecimal(ingredient.polyUnsaturatedFat, 0, 2)} + 'g'"></td>
         </tr>
 
         <tr>
             <td>Monounsaturated Fat</td>
-            <td th:text="${ingredient.monoUnsaturatedFat}"></td>
+            <td th:text="${#numbers.formatDecimal(ingredient.monoUnsaturatedFat, 0, 2)} + 'g'"></td>
         </tr>
 
         <tr>
             <td>Trans Fat</td>
-            <td th:text="${ingredient.transFat}"></td>
+            <td th:text="${#numbers.formatDecimal(ingredient.transFat, 0, 2)} + 'g'"></td>
         </tr>
 
         <tr>
             <td>Total Fat</td>
-            <td th:text="${ingredient.totalFat}"></td>
+            <td th:text="${#numbers.formatDecimal(ingredient.totalFat, 0, 2)} + 'g'"></td>
         </tr>
 
         <tr>
             <td>Cholesterol</td>
-            <td th:text="${ingredient.cholesterol}"></td>
+            <td th:text="${#numbers.formatDecimal(ingredient.cholesterol, 0, 2)} + 'mg'"></td>
         </tr>
 
         <tr>
             <td>Sodium</td>
-            <td th:text="${ingredient.sodium}"></td>
+            <td th:text="${#numbers.formatDecimal(ingredient.sodium, 0, 2)} + 'mg'"></td>
         </tr>
 
         <tr>
             <td>Potassium</td>
-            <td th:text="${ingredient.potassium}"></td>
+            <td th:text="${#numbers.formatDecimal(ingredient.potassium, 0, 2)}+ 'mg'"></td>
         </tr>
 
         <tr>
             <td>Total Carbohydrate</td>
-            <td th:text="${ingredient.totalCarbohydrate}"></td>
+            <td th:text="${#numbers.formatDecimal(ingredient.totalCarbohydrate, 0, 2)} + 'g'"></td>
         </tr>
 
         <tr>
             <td>Dietary Fiber</td>
-            <td th:text="${ingredient.dietaryFiber}"></td>
+            <td th:text="${#numbers.formatDecimal(ingredient.dietaryFiber, 0, 2)} + 'g'"></td>
         </tr>
 
         <tr>
             <td>Sugar</td>
-            <td th:text="${ingredient.sugar}"></td>
+            <td th:text="${#numbers.formatDecimal(ingredient.sugar, 0, 2)} + 'g'"></td>
         </tr>
 
         <tr>
             <td>Net Carbohydrate</td>
-            <td th:text="${ingredient.netCarbohydrate}"></td>
+            <td th:text="${#numbers.formatDecimal(ingredient.netCarbohydrate, 0, 2)} + 'g'"></td>
         </tr>
 
         <tr>
             <td>Protein</td>
-            <td th:text="${ingredient.protein}"></td>
+            <td th:text="${#numbers.formatDecimal(ingredient.protein, 0, 2)} + 'g'"></td>
         </tr>
 
     </table>

@@ -6,13 +6,40 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<h1 th:text="${title}">Default Title</h1>
+<div class="row justify-content-center">
+    <h1 th:text="${title}">Default Title</h1>
+</div>
 
-<a th:href="@{'/day/delete/' + ${form.day.id}}">Delete Day</a>
+<div class="row justify-content-center">
+    <a th:href="@{'/day/delete/' + ${form.day.id}}">Clear Day</a>
+</div>
 
+<div class="row">
+
+</div>
 
 <div class="container">
     <div class="row">
+        <div class="col-sm-4">
+            <form method="post" th:object="${day}" action="/day/create">
+
+                <div>
+                    <h2>Select different day?</h2>
+                    <!--<label for="datepicker">Select different day?</label>-->
+                    <input id="datepicker" width="276" th:field="*{name}"/>
+                    <span th:errors="*{name}" class="text-danger"></span>
+                </div>
+
+                <script>
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+    </script>
+                <input type="hidden" name="id" th:value="*{id}" />
+                <input type="submit" value="Select Date" />
+            </form>
+
+        </div>
         <div class="col-sm-4">
             <!--<button data-toggle="collapse" data-target="#nutrition">Nutrition Totals</button>-->
             <!--<div id="nutrition" class="collapse">-->
@@ -27,72 +54,72 @@
 
                     <tr>
                         <td>Calories</td>
-                        <td th:text="${form.day.calories}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.day.calories, 0, 2)}"></td>
                     </tr>
 
                     <tr>
                         <td>Saturated Fat</td>
-                        <td th:text="${form.day.saturatedFat}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.day.saturatedFat, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Polyunsaturated Fat</td>
-                        <td th:text="${form.day.polyUnsaturatedFat}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.day.polyUnsaturatedFat, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Monounsaturated Fat</td>
-                        <td th:text="${form.day.monoUnsaturatedFat}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.day.monoUnsaturatedFat, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Trans Fat</td>
-                        <td th:text="${form.day.transFat}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.day.transFat, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Total Fat</td>
-                        <td th:text="${form.day.totalFat}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.day.totalFat, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Cholesterol</td>
-                        <td th:text="${form.day.cholesterol}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.day.cholesterol, 0, 2)} + 'mg'"></td>
                     </tr>
 
                     <tr>
                         <td>Sodium</td>
-                        <td th:text="${form.day.sodium}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.day.sodium, 0, 2)} + 'mg'"></td>
                     </tr>
 
                     <tr>
                         <td>Potassium</td>
-                        <td th:text="${form.day.potassium}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.day.potassium, 0, 2)} + 'mg'"></td>
                     </tr>
 
                     <tr>
                         <td>Total Carbohydrate</td>
-                        <td th:text="${form.day.totalCarbohydrate}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.day.totalCarbohydrate, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Dietary Fiber</td>
-                        <td th:text="${form.day.dietaryFiber}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.day.dietaryFiber, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Sugar</td>
-                        <td th:text="${form.day.sugar}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.day.sugar, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Net Carbohydrate</td>
-                        <td th:text="${form.day.netCarbohydrate}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.day.netCarbohydrate, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Protein</td>
-                        <td th:text="${form.day.protein}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.day.protein, 0, 2)} + 'g'"></td>
                     </tr>
 
                 </table>
@@ -100,7 +127,7 @@
 
         </div>
 
-        <div class="col-sm-2"></div>
+        <!--<div class="col-sm-2"></div>-->
 
         <div class="col-sm-4">
             <h2>Meals for the Day</h2>
@@ -108,10 +135,10 @@
             <p th:unless="${form.day.meals} and ${form.day.meals.size()}">No meals currently planned for the day</p>
 
             <table class="table" th:if="${form.day.meals} and ${form.day.meals.size()}">
-
+<!--
                 <tr>
                     <th>Meal</th>
-                </tr>
+                </tr>-->
 
                 <tr th:each="meal : ${form.day.meals}">
                     <td th:text="${meal.name}"></td>
@@ -128,24 +155,28 @@
             </table>
 
 
-            <form method="post" style="max-width:600px;" th:object="${form}">
-                <div class="form-group">
-                    <label th:for="mealId">Select Meal</label>
-                    <select class="form-control" th:field="*{mealId}">
-                        <div th:each="meal : *{meals}">
-                            <option th:if="${meal.user.id} == ${user.id}" th:value="${meal.id}" th:text="${meal.name}"></option>
-                        </div>
+            <div>
+                <h2>Add Meals</h2>
+                <form method="post" style="max-width:600px;" th:object="${form}">
+                    <div class="form-group">
+                        <label th:for="mealId">Select meal to add</label>
+                        <select class="form-control" th:field="*{mealId}">
+                            <div th:each="meal : *{meals}">
+                                <option th:if="${meal.user.id} == ${user.id}" th:value="${meal.id}" th:text="${meal.name}"></option>
+                            </div>
 
-                    </select>
-                    <span th:errors="*{mealId}" class="error"></span>
-                    <input type="hidden" name="dayId" th:value="*{day.id}" />
-
-
-                    <input type="submit" value="Add Meal">
-                </div>
+                        </select>
+                        <span th:errors="*{mealId}" class="text-danger"></span>
+                        <input type="hidden" name="dayId" th:value="*{day.id}" />
 
 
-            </form>
+                        <input type="submit" value="Add Meal">
+                    </div>
+
+
+                </form>
+            </div>
+
         </div>
 
         <div class="col-sm-2"></div>

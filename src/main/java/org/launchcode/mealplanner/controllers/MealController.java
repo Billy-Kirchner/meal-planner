@@ -84,10 +84,14 @@ public class MealController extends AbstractController{
         Double servings = form.getServings();
         Component newComponent = new Component(newIngredient, servings);
         componentDao.save(newComponent);
-//        currentMeal.addIngredient(newIngredient);
         currentMeal.addComponent(newComponent);
         currentMeal.calculateTotals();
         mealDao.save(currentMeal);
+
+        for (Day day : dayDao.findAll()) {
+            day.calculateTotals();
+            dayDao.save(day);
+        }
 
         return "redirect:/meal/build/" + currentMeal.getId();
 

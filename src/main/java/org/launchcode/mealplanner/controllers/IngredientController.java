@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -64,21 +66,43 @@ public class IngredientController extends AbstractController{
         return "ingredient/view";
     }
 
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String deleteIngredient( Model model, @PathVariable(value ="id") int id) {
+    @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
+    public String displayEditForm( Model model, @PathVariable(value ="id") int id) {
 
         model.addAttribute("ingredient", ingredientDao.findById(id).orElse(null));
-        Ingredient deletedIngredient = ingredientDao.findById(id).orElse(null);
+
+        return "ingredient/edit";
+    }
+
+    @RequestMapping(value = "edit/{id}", method = RequestMethod.POST)
+    public String processEditForm (@ModelAttribute @ Valid Ingredient editedIngredient, Errors errors, @PathVariable(value ="id") int id) {
+
+        Ingredient oldIngredient = ingredientDao.findById(id).orElse(null);
+
+        oldIngredient.setName(editedIngredient.getName());
+        oldIngredient.setCalories(editedIngredient.getCalories());
+        oldIngredient.setSaturatedFat(editedIngredient.getSaturatedFat());
+        oldIngredient.setPolyUnsaturatedFat(editedIngredient.getPolyUnsaturatedFat());
+        oldIngredient.setMonoUnsaturatedFat(editedIngredient.getMonoUnsaturatedFat());
+        oldIngredient.setTransFat(editedIngredient.getTransFat());
+        oldIngredient.setCholesterol(editedIngredient.getCholesterol());
+        oldIngredient.setSodium(editedIngredient.getSodium());
+        oldIngredient.setPotassium(editedIngredient.getPotassium());
+        oldIngredient.setTotalCarbohydrate(editedIngredient.getTotalCarbohydrate());
+        oldIngredient.setDietaryFiber(editedIngredient.getDietaryFiber());
+        oldIngredient.setSugar(editedIngredient.getSugar());
+        oldIngredient.setProtein(editedIngredient.getProtein());
+
+        oldIngredient.calculateTotalFat();
+        oldIngredient.calculateNetCarbohydrate();
+
+        ingredientDao.save(oldIngredient);
+
+
 
         for (Meal meal : mealDao.findAll()) {
-            for (Component component : meal.getComponents()) {
-                if (component.getIngredient() == deletedIngredient) {
-                    meal.removeComponent(component);
-                    componentDao.delete(component);
-                    meal.calculateTotals();
-                    mealDao.save(meal);
-                }
-            }
+            meal.calculateTotals();
+            mealDao.save(meal);
         }
 
         for (Day day : dayDao.findAll()) {
@@ -86,7 +110,34 @@ public class IngredientController extends AbstractController{
             dayDao.save(day);
         }
 
-        ingredientDao.deleteById(id);
+        return "redirect:/ingredient/view/" + id;
+    }
+
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+    public String deleteIngredient( Model model, @PathVariable(value ="id") int id) {
+
+        model.addAttribute("ingredient", ingredientDao.findById(id).orElse(null));
+        Ingredient deletedIngredient = ingredientDao.findById(id).orElse(null);
+
+        for (Meal meal : mealDao.findAll()) {
+            List<Component> components = new ArrayList<>(meal.getComponents());
+            for (Component component : components) {
+                if (component.getIngredient() == deletedIngredient) {
+                    meal.removeComponent(component);
+                    componentDao.delete(component);
+                }
+            }
+            meal.calculateTotals();
+            mealDao.save(meal);
+        }
+
+        for (Day day : dayDao.findAll()) {
+            day.calculateTotals();
+            dayDao.save(day);
+        }
+
+        ingredientDao.delete(deletedIngredient);
+
 
         return "ingredient/delete";
     }

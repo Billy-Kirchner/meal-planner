@@ -24,26 +24,33 @@ public class DayController extends AbstractController{
     public String index (Model model) {
 
         model.addAttribute("title", "Day Planner");
-        model.addAttribute("days", dayDao.findAll());
+//        model.addAttribute("days", dayDao.findAll());
+        model.addAttribute(new Day());
 
         return "day/index";
     }
 
-    @RequestMapping(value = "create", method = RequestMethod.GET)
+/*    @RequestMapping(value = "create", method = RequestMethod.GET)
     public String displayCreateDayForm(Model model) {
 
         model.addAttribute("title", "Create New Day");
         model.addAttribute(new Day());
 
         return "day/create";
-    }
+    }*/
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String processCreateDayForm(@ModelAttribute @Valid Day newDay, Errors errors, Model model, HttpServletRequest request) {
+    public String createDay(@ModelAttribute @Valid Day newDay, Errors errors, Model model, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Create New Day");
-            return "day/create";
+            model.addAttribute("title", "Day Planner");
+            return "day/index";
+        }
+
+        Day existingDay = dayDao.findByName(newDay.getName());
+
+        if(existingDay != null) {
+            return"redirect:/day/build/" + existingDay.getId();
         }
 
         newDay.setUser(getUserFromSession(request.getSession()));
@@ -58,8 +65,9 @@ public class DayController extends AbstractController{
     public String displayBuildDayForm (Model model, @PathVariable (value = "id") int id) {
         BuildDayForm buildDayForm = new BuildDayForm(dayDao.findById(id).orElse(null), mealDao.findAll());
 
+        model.addAttribute(new Day());
         model.addAttribute("form", buildDayForm);
-        model.addAttribute("title", "Plan Day: " + dayDao.findById(id).orElse(null).getName());
+        model.addAttribute("title", "Plan Meals for Day: " + dayDao.findById(id).orElse(null).getName());
 
         return "day/build";
     }
@@ -72,6 +80,12 @@ public class DayController extends AbstractController{
 
             return "day/build";
         }
+
+/*        Day existingDay = dayDao.findByName(newDay.getName());
+
+        if(existingDay != null) {
+            return"redirect:/day/build/" + existingDay.getId();
+        }*/
 
         Meal newMeal = mealDao.findById(form.getMealId()).orElse(null);
         Day currentDay = dayDao.findById(form.getDayId()).orElse(null);

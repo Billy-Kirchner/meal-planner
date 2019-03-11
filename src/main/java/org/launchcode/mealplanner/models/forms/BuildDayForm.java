@@ -17,6 +17,13 @@ public class BuildDayForm {
     @NotNull
     private int mealId;
 
+/*
+    private Day differentDay;
+
+    @NotNull
+    private int differentDayId;
+*/
+
     public BuildDayForm (Day day, Iterable<Meal> meals){
         this.day = day;
         this.meals = meals;
@@ -58,4 +65,20 @@ public class BuildDayForm {
     public void setMealId(int mealId) {
         this.mealId = mealId;
     }
+
+/*    public Day getDifferentDay() {
+        return differentDay;
+    }
+
+    public void setDifferentDay(Day differentDay) {
+        this.differentDay = differentDay;
+    }
+
+    public int getDifferentDayId() {
+        return differentDayId;
+    }
+
+    public void setDifferentDayId(int differentDayId) {
+        this.differentDayId = differentDayId;
+    }*/
 }

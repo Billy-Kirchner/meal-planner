@@ -8,7 +8,7 @@
 
 <h1 th:text="${title}">Default Title</h1>
 
-<form method="post" style="max-width:600px;" th:object="${day}">
+<!--<form method="post" style="max-width:600px;" th:object="${day}">
 
     <div class="form-group">
         <label th:for="name">Name</label>
@@ -20,6 +20,18 @@
 
     <input type="submit" value="Create Day" />
 
+</form>-->
+
+<form method="post" th:object="${day}">
+    <label for="datepicker">Select a day to plan:</label>
+    <input id="datepicker" width="276" th:field="*{name}"/>
+    <script>
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+    </script>
+    <input type="hidden" name="id" value="*{id}" />
+    <input type="submit" value="Select Date" />
 </form>
 
 </body>

@@ -6,9 +6,16 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<h1 th:text="${title}">Default Title</h1>
 
-<a th:href="@{'/meal/delete/' + ${form.meal.id}}">Delete Meal</a>
+<div class="row justify-content-center">
+    <h1 th:text="${title}">Default Title</h1>
+</div>
+
+<div class="row justify-content-center">
+    <a th:href="@{'/meal/delete/' + ${form.meal.id}}">Delete Meal</a>
+</div>
+
+
 
 
 <div class="container">
@@ -33,67 +40,67 @@
 
                     <tr>
                         <td>Saturated Fat</td>
-                        <td th:text="${#numbers.formatDecimal(form.meal.saturatedFat, 0, 2)}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.saturatedFat, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Polyunsaturated Fat</td>
-                        <td th:text="${#numbers.formatDecimal(form.meal.polyUnsaturatedFat, 0, 2)}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.polyUnsaturatedFat, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Monounsaturated Fat</td>
-                        <td th:text="${#numbers.formatDecimal(form.meal.monoUnsaturatedFat, 0, 2)}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.monoUnsaturatedFat, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Trans Fat</td>
-                        <td th:text="${#numbers.formatDecimal(form.meal.transFat, 0, 2)}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.transFat, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Total Fat</td>
-                        <td th:text="${#numbers.formatDecimal(form.meal.totalFat, 0, 2)}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.totalFat, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Cholesterol</td>
-                        <td th:text="${#numbers.formatDecimal(form.meal.cholesterol, 0, 2)}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.cholesterol, 0, 2)} + 'mg'"></td>
                     </tr>
 
                     <tr>
                         <td>Sodium</td>
-                        <td th:text="${#numbers.formatDecimal(form.meal.sodium, 0, 2)}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.sodium, 0, 2)} + 'mg'"></td>
                     </tr>
 
                     <tr>
                         <td>Potassium</td>
-                        <td th:text="${#numbers.formatDecimal(form.meal.potassium, 0, 2)}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.potassium, 0, 2)} + 'mg'"></td>
                     </tr>
 
                     <tr>
                         <td>Total Carbohydrate</td>
-                        <td th:text="${#numbers.formatDecimal(form.meal.totalCarbohydrate, 0, 2)}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.totalCarbohydrate, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Dietary Fiber</td>
-                        <td th:text="${#numbers.formatDecimal(form.meal.dietaryFiber, 0, 2)}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.dietaryFiber, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Sugar</td>
-                        <td th:text="${#numbers.formatDecimal(form.meal.sugar, 0, 2)}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.sugar, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Net Carbohydrate</td>
-                        <td th:text="${#numbers.formatDecimal(form.meal.netCarbohydrate, 0, 2)}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.netCarbohydrate, 0, 2)} + 'g'"></td>
                     </tr>
 
                     <tr>
                         <td>Protein</td>
-                        <td th:text="${#numbers.formatDecimal(form.meal.protein, 0, 2)}"></td>
+                        <td th:text="${#numbers.formatDecimal(form.meal.protein, 0, 2)} + 'g'"></td>
                     </tr>
 
                 </table>
@@ -132,28 +139,32 @@
 
             </table>
 
-            <form method="post" style="max-width:600px;" th:object="${form}">
-                <div class="form-group">
-                    <label th:for="ingredientId">Select Ingredient</label>
-                    <select class="form-control" th:field="*{ingredientId}">
-                        <div th:each="ingredient : *{ingredients}">
-                            <div th:if="${ingredient.user.id} == ${user.id}">
-                                <option  th:value="${ingredient.id}" th:text="${ingredient.name}"></option>
+            <div>
+                <h2> Add new components</h2>
+
+                <form method="post" style="max-width:600px;" th:object="${form}">
+                    <div class="form-group">
+                        <label th:for="ingredientId">Select Ingredient</label>
+                        <select class="form-control" th:field="*{ingredientId}">
+                            <div th:each="ingredient : *{ingredients}">
+                                <div th:if="${ingredient.user.id} == ${user.id}">
+                                    <option  th:value="${ingredient.id}" th:text="${ingredient.name}"></option>
+                                </div>
                             </div>
-                        </div>
 
-                    </select>
-                    <span th:errors="*{ingredientId}" class="error"></span>
-                    <input type="hidden" name="mealId" th:value="*{meal.id}" />
+                        </select>
+                        <span th:errors="*{ingredientId}" class="text-danger"></span>
+                        <input type="hidden" name="mealId" th:value="*{meal.id}" />
 
-                    <label th:for="servings">Servings</label>
-                    <input class="form-control" th:field="*{servings}" />
+                        <label th:for="servings">Servings</label>
+                        <input class="form-control" th:field="*{servings}" />
 
-                    <input type="submit" value="Add Component">
-                </div>
+                        <input type="submit" value="Add Component">
+                    </div>
 
 
-            </form>
+                </form>
+            </div>
         </div>
 
     </div>
