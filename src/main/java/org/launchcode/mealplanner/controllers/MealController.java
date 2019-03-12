@@ -17,15 +17,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("meal")
 public class MealController extends AbstractController{
 
     @RequestMapping(value = "")
-    public String index(Model model) {
+    public String index(Model model, HttpServletRequest request) {
 
-        model.addAttribute("meals", mealDao.findAll());
+        List<Meal> userMeals = new ArrayList<>();
+        for(Meal meal : mealDao.findAll()) {
+            if(meal.getUser() == getUserFromSession(request.getSession())) {
+                userMeals.add(meal);
+            }
+        }
+        model.addAttribute("meals", userMeals);
         model.addAttribute("title", "Meals");
 
         return "meal/index";

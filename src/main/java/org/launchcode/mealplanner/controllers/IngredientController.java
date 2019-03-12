@@ -23,11 +23,18 @@ public class IngredientController extends AbstractController{
     @RequestMapping(value = "")
     public String index( Model model, HttpServletRequest request) {
 
-        if(getUserFromSession(request.getSession()) == null) {
+/*        if(getUserFromSession(request.getSession()) == null) {
             return "redirect:" + "/login";
+        }*/
+        List<Ingredient> userIngredients = new ArrayList<>();
+
+        for(Ingredient ingredient : ingredientDao.findAll()) {
+            if(ingredient.getUser() == getUserFromSession(request.getSession())) {
+                userIngredients.add(ingredient);
+            }
         }
 
-        model.addAttribute("ingredients", ingredientDao.findAll());
+        model.addAttribute("ingredients", userIngredients);
         model.addAttribute("title", "Available Ingredients");
 
         return "ingredient/index";

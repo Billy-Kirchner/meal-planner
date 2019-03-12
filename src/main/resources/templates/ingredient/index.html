@@ -18,7 +18,7 @@
 
 
 <div class="container">
-    <div class="row justfy-content-left">
+    <div class="row justify-content-left mx-auto mb-3">
         <a href="/ingredient/add" class="btn btn-primary btn-sm" role="button">Add New Ingredient</a>
     </div>
 
@@ -26,15 +26,16 @@
     <div class="row justify-content-center">
 
         <div class="col-sm-4">
-            <p th:unless="${ingredients} and ${ingredients.size()}">Currently no available ingredients</p>
+            <h3 th:unless="${ingredients} and ${ingredients.size()}" style="color:red;">Currently no available ingredients</h3>
 
 
             <ul th:each="ingredient : ${ingredients}">
-                <div th:if="${ingredient.user.id} != null">
+                <a th:text="${ingredient.name}" th:href="@{'/ingredient/view/' + ${ingredient.id}}"></a>
+<!--                <div th:if="${ingredient.user.id} != null">
                     <div th:if="${ingredient.user.id} == ${user.id}">
                         <a th:text="${ingredient.name}" th:href="@{'/ingredient/view/' + ${ingredient.id}}"></a>
                     </div>
-                </div>
+                </div>-->
 
 
             </ul>

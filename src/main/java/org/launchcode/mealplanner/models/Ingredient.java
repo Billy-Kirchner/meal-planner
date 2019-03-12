@@ -19,7 +19,7 @@ public class Ingredient extends AbstractEntity{
     private int id;*/
 
     @NotNull
-    @Size(min=3, max=30, message = "Name must be between 3 and 30 characters")
+    @Size(min=3, max=50, message = "Name must be between 3 and 50 characters")
     private String name;
 
     @ManyToOne

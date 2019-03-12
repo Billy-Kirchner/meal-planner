@@ -3,6 +3,7 @@ package org.launchcode.mealplanner.controllers;
 
 import org.launchcode.mealplanner.models.Day;
 import org.launchcode.mealplanner.models.Meal;
+import org.launchcode.mealplanner.models.data.DayDao;
 import org.launchcode.mealplanner.models.forms.BuildDayForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("day")
@@ -47,11 +50,27 @@ public class DayController extends AbstractController{
             return "day/index";
         }
 
-        Day existingDay = dayDao.findByName(newDay.getName());
-
-        if(existingDay != null) {
-            return"redirect:/day/build/" + existingDay.getId();
+        List<Day> userDays = new ArrayList<>();
+        for(Day day : dayDao.findAll()) {
+            if(day.getUser() == getUserFromSession(request.getSession())) {
+                userDays.add(day);
+            }
         }
+//        Day existingDay = dayDao.findByName(newDay.getName());
+
+        for(Day existingDay : userDays) {
+            if(existingDay.getName().equals(newDay.getName())) {
+                return"redirect:/day/build/" + existingDay.getId();
+            }
+        }
+/*
+        if(existingDay != null) {
+            if(existingDay.getUser() == getUserFromSession(request.getSession())) {
+                return"redirect:/day/build/" + existingDay.getId();
+            }
+
+        }
+*/
 
         newDay.setUser(getUserFromSession(request.getSession()));
         dayDao.save(newDay);

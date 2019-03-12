@@ -8,20 +8,32 @@
 
 <h1 th:text="${title}">Default Title</h1>
 
-<form method="post" style="max-width:600px;" th:object="${loginForm}">
-    <div class="form-group">
-        <label th:for="username">Username</label>
-        <input class="form-control" th:field="*{username}" />
-        <div class="text-danger" th:errors="*{username}"></div>
-    </div>
-    <div class="form-group">
-        <label th:for="password">Password</label>
-        <input class="form-control" th:field="*{password}" type="password" />
-        <div class="text-danger" th:errors="*{password}"></div>
-    </div>
+<div class="container h-100 mt-1">
+    <form method="post" style="max-width:600px;" th:object="${loginForm}">
+        <div class="form-group">
+            <label th:for="username">Username</label>
+            <input class="form-control" th:field="*{username}" />
+            <div class="text-danger" th:errors="*{username}"></div>
+        </div>
+        <div class="form-group">
+            <label th:for="password">Password</label>
+            <input class="form-control" th:field="*{password}" type="password" />
+            <div class="text-danger" th:errors="*{password}"></div>
+        </div>
 
-    <input type="submit" value="Log In" />
-</form>
+        <input type="submit" value="Log In" />
+    </form>
+</div>
+
+<span>
+
+</span>
+
+<div class="container h-100 mt-4 row">
+    <p class="mr-2">Don't have an account?</p>
+    <a href="/register">Sign up</a>
+</div>
+
 
 </body>
 </html>

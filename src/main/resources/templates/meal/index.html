@@ -11,7 +11,7 @@
 </div>
 
 
-<div class="row justify-content-left">
+<div class="row justify-content-left mx-auto mb-3">
     <div class="col-sm-4">
         <a href="/meal/create" class="btn btn-primary btn-sm" role="button">Create New Meal</a>
     </div>
@@ -19,11 +19,14 @@
 
 <div class="row justify-content-center">
     <div class="col-sm-4">
-        <p th:unless="${meals} and ${meals.size()}">Currently no meals created</p>
+        <h3 th:unless="${meals} and ${meals.size()}" style="color:red;">Currently no meals created</h3>
         <ul th:each="meal : ${meals}">
+            <a th:text="${meal.name}" th:href="@{'/meal/build/' + ${meal.id}}"></a>
+<!--
             <div th:if="${meal.user.id} == ${user.id}">
                 <a th:text="${meal.name}" th:href="@{'/meal/build/' + ${meal.id}}"></a>
             </div>
+-->
 
         </ul>
     </div>

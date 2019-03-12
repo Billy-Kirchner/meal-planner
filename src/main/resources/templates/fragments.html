@@ -38,23 +38,24 @@
 
         <ul class="navbar-nav mr-auto" >
             <!--<a href="/" class="ml-10">Home</a> |-->
-            <li class="nav-item active"><a href="/ingredient" style="color:white;">Ingredients</a></li>
-            <li class="nav-item">|||</li>
-            <li class="nav-item"><a href="/meal" style="color:white;">Meals</a></li>
-            <li class="nav-item">|||</li>
+            <li class="nav-item active mr-2"><a href="/ingredient" style="color:white;">Ingredients</a></li>
+            <li class="nav-item mr-2"></li>
+            <li class="nav-item mr-2"><a href="/meal" style="color:white;">Meals</a></li>
+            <li class="nav-item mr-2"></li>
             <li class="nav-item"><a href="/day" style="color:white;">Day Planner</a></li>
         </ul>
 
 
         <div th:if="${user} == null">
             <div class="nav navbar-right">
-                <a href="/register" style="color:white;"><span class="glyphicon glyphicon-user"></span>Sign Up</a> |||
-                <a href="/login" style="color:white;"><span class="glyphicon glyphicon-log-in"></span>Login</a>
+                <a href="/register" style="color:white;"><span class="glyphicon glyphicon-user"></span>Sign Up</a>
+                <a href="/login" style="color:white;"><span class="glyphicon glyphicon-log-in ml-2"></span>Login</a>
             </div>
         </div>
         <div th:if="${user} != null">
-            <div class="nav navar-right">
-                <a th:text="'Welcome ' + ${user.username}" style="color:white;"></a> |||
+            <div class="nav navbar-right">
+                <a th:text="Welcome " style="color:white;" class="mr-2"></a>
+                <a th:text="${user.username}" style="color:white;" class="mr-4 font-weight-bold"></a>
                 <a href="/logout" style="color:white;"><span class="glyphicon glyphicon-log-out">Log Out</a>
             </div>
         </div>

@@ -4,11 +4,8 @@ package org.launchcode.mealplanner.models;
 import javax.persistence.*;
 
 @Entity
-public class Component {
+public class Component extends AbstractEntity{
 
-    @Id
-    @GeneratedValue
-    private int id;
 
     @ManyToOne
     @JoinColumn(name = "ingredient_id")
@@ -39,10 +36,6 @@ public class Component {
 
     public void setServings(Double servings) {
         this.servings = servings;
-    }
-
-    public int getId() {
-        return id;
     }
 
 
